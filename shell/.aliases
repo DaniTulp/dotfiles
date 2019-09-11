@@ -25,6 +25,8 @@ alias gc="git checkout"
 alias gpo="git push origin"
 alias gm="git merge"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias wip="git add . && git commit -m 'wip'"
+alias nah="git reset --hard && git clean -df"
 
 # Fast open
 alias o="open ."
@@ -32,14 +34,9 @@ alias o="open ."
 # List all files colorized in long format
 alias l="ls -laF"
 
-# PhPStorm
-alias phpstorm='open -a /Applications/PhpStorm.app "`pwd`"'
 
 # Redis
 alias flush-redis="redis-cli FLUSHALL"
-
-# VSCode
-alias code='open -a "/Applications/Visual Studio Code.app" "`pwd`"'
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
@@ -67,4 +64,11 @@ alias scrape="scrapeUrl"
 
 # Switch NPM
 alias npmnpm="npm config set registry https://registry.npmjs.org"
-alias npmspatie="npm config set registry https://npm.spatie.be"
+
+# Vagrant
+alias vu="cd ~/Homestead && vagrant up"
+alias vm='ssh vagrant@127.0.0.1 -p 2222'
+alias vd="cd ~/Homestead && vagrant halt"
+
+
+
