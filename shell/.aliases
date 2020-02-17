@@ -27,12 +27,40 @@ alias gm="git merge"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias wip="git add . && git commit -m 'wip'"
 alias nah="git reset --hard && git clean -df"
+alias gp='git push origin master'
+
+# Submodules may be ahead of the parent (master) repo.
+# See https://stackoverflow.com/questions/5828324/update-git-submodule-to-latest-commit-on-origin
+# Update the 'parent' git repo with latest submodules code (since submodule changes require TWO commits & pushes - one to the submodule, and one to the parent repo)
+# gup = git update parent
+function _gup {
+        #git submodule foreach git pull origin master
+        git submodule update --remote --merge
+        git add .
+        git commit -m "update master repo with updated submodules code"
+        git push origin master
+}
+alias gup='_gup'
+
+# Submodules may be ahead of the parent (master) repo.
+# See https://stackoverflow.com/questions/5828324/update-git-submodule-to-latest-commit-on-origin
+# After a git push (to a submodule), this goes one level up (assuming thats the master repo)
+# And updates the master repo with latest submodules code
+# gup = git push, and update parent
+function _gpp {
+        git push origin master
+        current_submodule_dir=$(pwd)
+        cd ..
+        gup
+        cd $current_submodule_dir
+}
+alias gpp='_gpp'
 
 # Fast open
 alias o="open ."
 
-# List all files colorized in long format
-alias l="ls -laF"
+# Alias for ls
+alias ls="exa"
 
 
 # Redis
@@ -69,6 +97,68 @@ alias npmnpm="npm config set registry https://registry.npmjs.org"
 alias vu="cd ~/Homestead && vagrant up"
 alias vm='ssh vagrant@127.0.0.1 -p 2222'
 alias vd="cd ~/Homestead && vagrant halt"
+
+# Docker
+function dnames-fn {
+	for ID in `docker ps | awk '{print $1}' | grep -v 'CONTAINER'`
+	do
+    	docker inspect $ID | grep Name | head -1 | awk '{print $2}' | sed 's/,//g' | sed 's%/%%g' | sed 's/"//g'
+	done
+}
+
+function dip-fn {
+	echo "IP addresses of all named running containers"
+
+	for DOC in `dnames-fn`
+	do
+  		IP=`docker inspect $DOC | grep -m3 IPAddress | cut -d '"' -f 4 | tr -d "\n"`
+  		echo $DOC : $IP
+	done
+}
+
+function dex-fn-shell {
+	docker exec -it $1 /bin/bash
+}
+
+function di-fn {
+	docker inspect $1
+}
+
+function dl-fn {
+	docker logs -f $1
+}
+
+function drun-fn {
+	docker run -it $1 /bin/bash
+}
+
+function dsr-fn {
+	docker stop $1;docker rm $1
+}
+
+function dsra-fn {
+	for ID in `docker ps | awk '{print $1}' | grep -v 'CONTAINER'`
+	do
+    	dsr-fn $ID
+	done
+}
+
+alias dcu="docker-compose up -d"
+alias dcd="docker-compose down"
+alias dexs=dex-fn-shell
+alias dex="docker exec -it"
+alias di=di-fn
+alias dim="docker images"
+alias dip=dip-fn
+alias dl=dl-fn
+alias dnames=dnames-fn
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+# alias drmc="docker rm $(docker ps --all -q -f status=exited)"
+# alias drmid="docker rmi $( docker images -q -f dangling=true)"
+alias drun=drun-fn
+alias dsr=dsr-fn
+alias dsra=dsra-fn
 
 
 
