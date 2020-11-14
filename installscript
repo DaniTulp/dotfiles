@@ -60,7 +60,7 @@ echo 'Install homebrew'
 echo '----------------'
 echo install homebrew
 sudo rm -rf /usr/local/Cellar /usr/local/.git && brew cleanup
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
 echo 'Install node'
 echo '-----------'
@@ -72,7 +72,7 @@ brew install pkg-config
 
 echo 'Install wget'
 echo '------------'
-brew install wget --overwrite
+brew install --overwrite wget
 
 echo 'Install httpie'
 echo '--------------'
@@ -81,10 +81,6 @@ brew install httpie
 echo 'Install ncdu'
 echo '------------'
 brew install ncdu
-
-echo 'Install hub'
-echo '-----------'
-brew install hub
 
 echo 'Install ack'
 echo '-----------'
@@ -105,10 +101,10 @@ brew cask install --force qlcolorcode qlstephen qlmarkdown quicklook-json qlpret
 
 echo 'Install php'
 echo '-----------'
-brew install php@7.0
 brew install php@7.1
 brew install php@7.2
 brew install php@7.3
+brew install php@7.4
 
 echo 'Install imagemagick'
 echo '-------------------'
@@ -130,18 +126,6 @@ echo 'Install redis'
 echo '-------------'
 pecl install redis
 
-echo 'Install laravel envoy'
-echo '---------------------'
-composer global require "laravel/envoy=~1.0"
-
-echo 'Install phpunit-watcher'
-echo '-----------------------'
-composer global require spatie/phpunit-watcher
-
-echo 'Install mixed-content-scanner-cli'
-echo '---------------------------------'
-composer global require spatie/mixed-content-scanner-cli
-
 echo 'Install laravel valet'
 echo '---------------------'
 composer global require laravel/valet
@@ -149,16 +133,16 @@ valet install
 
 echo 'Install mysql'
 echo '-------------'
-brew install mysql@5.7
-brew services start mysql@5.7
+brew install mysql
+brew services start mysql
+
+echo 'Install gh cli'
+echo '-------------'
+brew install gh
 
 echo 'Install yarn'
 echo '------------'
 brew install yarn
-
-echo 'Install ghostscript'
-echo '-------------------'
-brew install ghostscript
 
 echo 'Install mackup'
 echo '--------------'
@@ -171,6 +155,16 @@ brew install zsh-autosuggestions
 echo 'Install Improved ls™'
 echo '---------------------------'
 brew install exa
+
+echo 'Install zsh-syntax-highlighting'
+echo '---------------------------'
+brew install zsh-syntax-highlighting
+
+echo 'Install fzf searcher'
+echo '---------------------------'
+brew install fzf
+$(brew --prefix)/opt/fzf/install
+
 
 echo '++++++++++++++++++++++++++++++'
 echo '++++++++++++++++++++++++++++++'
