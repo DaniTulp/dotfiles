@@ -12,10 +12,11 @@ alias deploy='envoy run deploy'
 alias deploy-code='envoy run deploy-code'
 alias mfs='php artisan migrate:fresh --seed'
 alias nah='git reset --hard;git clean -df'
-alias p="phpunit"
+alias p="./vendor/bin/pest"
 alias pf="phpunit --filter "
 alias sshconfig="vi ~/.ssh/config"
 alias copykey='command cat ~/.ssh/id_rsa.public | pbcopy'
+alias sail='bash vendor/bin/sail'
 
 # JavaScript
 alias jest="./node_modules/.bin/jest"
@@ -97,68 +98,3 @@ alias npmnpm="npm config set registry https://registry.npmjs.org"
 alias vu="cd ~/Homestead && vagrant up"
 alias vm='ssh vagrant@127.0.0.1 -p 2222'
 alias vd="cd ~/Homestead && vagrant halt"
-
-# Docker
-function dnames-fn {
-	for ID in `docker ps | awk '{print $1}' | grep -v 'CONTAINER'`
-	do
-    	docker inspect $ID | grep Name | head -1 | awk '{print $2}' | sed 's/,//g' | sed 's%/%%g' | sed 's/"//g'
-	done
-}
-
-function dip-fn {
-	echo "IP addresses of all named running containers"
-
-	for DOC in `dnames-fn`
-	do
-  		IP=`docker inspect $DOC | grep -m3 IPAddress | cut -d '"' -f 4 | tr -d "\n"`
-  		echo $DOC : $IP
-	done
-}
-
-function dex-fn-shell {
-	docker exec -it $1 /bin/bash
-}
-
-function di-fn {
-	docker inspect $1
-}
-
-function dl-fn {
-	docker logs -f $1
-}
-
-function drun-fn {
-	docker run -it $1 /bin/bash
-}
-
-function dsr-fn {
-	docker stop $1;docker rm $1
-}
-
-function dsra-fn {
-	for ID in `docker ps | awk '{print $1}' | grep -v 'CONTAINER'`
-	do
-    	dsr-fn $ID
-	done
-}
-
-alias dcu="docker-compose up -d"
-alias dcd="docker-compose down"
-alias dexs=dex-fn-shell
-alias dex="docker exec -it"
-alias di=di-fn
-alias dim="docker images"
-alias dip=dip-fn
-alias dl=dl-fn
-alias dnames=dnames-fn
-alias dps="docker ps"
-alias dpsa="docker ps -a"
-# alias drmc="docker rm $(docker ps --all -q -f status=exited)"
-# alias drmid="docker rmi $( docker images -q -f dangling=true)"
-alias drun=drun-fn
-alias dsr=dsr-fn
-alias dsra=dsra-fn
-
-
-

@@ -101,10 +101,8 @@ brew cask install --force qlcolorcode qlstephen qlmarkdown quicklook-json qlpret
 
 echo 'Install php'
 echo '-----------'
-brew install php@7.1
-brew install php@7.2
-brew install php@7.3
 brew install php@7.4
+brew install php
 
 echo 'Install imagemagick'
 echo '-------------------'
@@ -118,13 +116,17 @@ echo 'Install memcached'
 echo '-----------------'
 pecl install memcached
 
-echo 'Install xdebug'
+echo 'Install pcov'
 echo '--------------'
-pecl install xdebug
+pecl install pcov
 
 echo 'Install redis'
 echo '-------------'
 pecl install redis
+
+echo '-------------'
+brew install redis
+# brew services start redis
 
 echo 'Install laravel valet'
 echo '---------------------'
@@ -134,7 +136,7 @@ valet install
 echo 'Install mysql'
 echo '-------------'
 brew install mysql
-brew services start mysql
+# brew services start mysql
 
 echo 'Install gh cli'
 echo '-------------'
