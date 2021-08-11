@@ -13,6 +13,7 @@ alias deploy-code='envoy run deploy-code'
 alias mfs='php artisan migrate:fresh --seed'
 alias nah='git reset --hard;git clean -df'
 alias p="./vendor/bin/pest"
+alias pt="./vendor/bin/phpunit"
 alias pf="phpunit --filter "
 alias sshconfig="vi ~/.ssh/config"
 alias copykey='command cat ~/.ssh/id_rsa.public | pbcopy'
