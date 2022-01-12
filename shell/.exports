@@ -22,3 +22,4 @@ export MANPAGER="less -X"
 
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto"
+export KUBE_CONFIG_PATH="~/.kube/config"

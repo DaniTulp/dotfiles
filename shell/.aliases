@@ -31,33 +31,6 @@ alias wip="git add . && git commit -m 'wip'"
 alias nah="git reset --hard && git clean -df"
 alias gp='git push origin master'
 
-# Submodules may be ahead of the parent (master) repo.
-# See https://stackoverflow.com/questions/5828324/update-git-submodule-to-latest-commit-on-origin
-# Update the 'parent' git repo with latest submodules code (since submodule changes require TWO commits & pushes - one to the submodule, and one to the parent repo)
-# gup = git update parent
-function _gup {
-        #git submodule foreach git pull origin master
-        git submodule update --remote --merge
-        git add .
-        git commit -m "update master repo with updated submodules code"
-        git push origin master
-}
-alias gup='_gup'
-
-# Submodules may be ahead of the parent (master) repo.
-# See https://stackoverflow.com/questions/5828324/update-git-submodule-to-latest-commit-on-origin
-# After a git push (to a submodule), this goes one level up (assuming thats the master repo)
-# And updates the master repo with latest submodules code
-# gup = git push, and update parent
-function _gpp {
-        git push origin master
-        current_submodule_dir=$(pwd)
-        cd ..
-        gup
-        cd $current_submodule_dir
-}
-alias gpp='_gpp'
-
 # Fast open
 alias o="open ."
 
