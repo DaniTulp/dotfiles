@@ -167,6 +167,24 @@ echo '---------------------------'
 brew install fzf
 $(brew --prefix)/opt/fzf/install
 
+echo 'Install karabiner elements'
+echo '---------------------------'
+brew install --cask karabiner-elements
+
+echo 'Install goku'
+echo '---------------------------'
+brew install yqrashawn/goku/goku
+
+echo 'Install hammerspoon'
+echo '---------------------------'
+brew install --cask hammerspoon
+
+echo "linking karabiner config"
+ln -s "$HOME/.dotfiles/karabiner/karabiner.edn" "$HOME/.config/karabiner.edn"
+
+# link hammerspoon config
+echo "linking hammerspoon config"
+ln -s "$HOME/.dotfiles/hammerspoon" "$HOME/.hammerspoon"
 
 echo '++++++++++++++++++++++++++++++'
 echo '++++++++++++++++++++++++++++++'

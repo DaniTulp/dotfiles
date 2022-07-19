@@ -1,0 +1,24 @@
+{
+  :templates {
+   :hyper "open -g hammerspoon://hyper?action=%s\\&target=%s"
+  }
+  :layers {
+    :default {:key :caps_lock :alone {:key :escape}}
+  }
+  :main [
+    {
+      :des "Command layer"
+      :rules [:default
+        [:o [:hyper "open" "default"]]
+        [:h [:hyper "navigate" "back"]]
+        [:j [:hyper "navigate" "down"]]
+        [:k [:hyper "navigate" "up"]]
+        [:l [:hyper "navigate" "forward"]]
+        [:p [:hyper "paste" "default"]]
+        [:y [:hyper "copy" "default"]]
+        [:i [:hyper "insert" "default"]]
+        [:semicolon [:hyper "open" "alfred"]]
+      ]
+    }
+  ]
+}

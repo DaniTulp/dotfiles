@@ -19,8 +19,6 @@ function mkd() {
    mkdir -p "$@" && cd "$@"
 }
 
-# Open a valet project in the browser
-
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
 	local port="${1:-9000}"
@@ -49,7 +47,7 @@ function ql() {
    quick-look "$1"
 }
 
-archive () {
+function archive () {
    zip -r "$1".zip -i "$1" ;
 }
 
@@ -66,8 +64,6 @@ function weather() {
 
    eval "curl http://wttr.in/${city}"
 }
-
-alias mysqladm='mysql -u root'
 
 # Scrape a single webpage with all assets
 function scrapeUrl() {
@@ -86,16 +82,10 @@ function commit() {
   eval "git commit -a -m '${commitMessage}'"
 }
 
-function db {
-    if [ "$1" = "refresh" ]; then
-        mysql -uroot -e "drop database $2; create database $2"
-    elif [ "$1" = "create" ]; then
-        mysql -uroot -e "create database $2"
-    elif [ "$1" = "drop" ]; then
-        mysql -uroot -e "drop database $2"
-    fi
-}
-
 function composer-link() {
     composer config repositories.local '{"type": "path", "url": "'$1'"}' --file composer.json
+}
+
+function killport() {
+    lsof -i ":$1" -t | xargs kill
 }
