@@ -20,9 +20,6 @@ ln -s $HOME/.dotfiles/shell/.zshrc $HOME/.zshrc
 # Symlink vim prefs
 rm $HOME/.vimrc
 ln -s $HOME/.dotfiles/shell/.vimrc $HOME/.vimrc
-rm $HOME/.vim
-ln -s $HOME/.dotfiles/shell/.vim $HOME/.vim
-
 # Symlink yarn prefs
 rm $HOME/.yarnrc
 ln -s $HOME/.dotfiles/shell/.yarnrc $HOME/.yarnrc
@@ -62,122 +59,15 @@ echo install homebrew
 sudo rm -rf /usr/local/Cellar /usr/local/.git && brew cleanup
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-echo 'Install node'
-echo '-----------'
-brew install node@8
+brew update
 
-echo 'Install pkg-config'
-echo '------------------'
-brew install pkg-config
-
-echo 'Install wget'
-echo '------------'
-brew install --overwrite wget
-
-echo 'Install httpie'
-echo '--------------'
-brew install httpie
-
-echo 'Install ncdu'
-echo '------------'
-brew install ncdu
-
-echo 'Install ack'
-echo '-----------'
-brew install ack
-
-echo 'Install doctl'
-echo '-------------'
-brew install doctl
-
-echo 'Install brew-cask'
-echo '-----------------'
-brew tap caskroom/cask
-brew install brew-cask
-
-echo 'Install some nice quicklook plugins'
-echo '-----------------------------------'
-brew cask install --force qlcolorcode qlstephen qlmarkdown quicklook-json qlprettypatch quicklook-csv betterzipql webp-quicklook suspicious-package
-
-echo 'Install php'
-echo '-----------'
-brew install php@7.4
-brew install php
-
-echo 'Install imagemagick'
-echo '-------------------'
-brew install imagemagick
-
-echo 'Install imagick'
-echo '---------------'
-pecl install imagick
-
-echo 'Install memcached'
-echo '-----------------'
-pecl install memcached
-
-echo 'Install pcov'
-echo '--------------'
-pecl install pcov
-
-echo 'Install redis'
-echo '-------------'
-pecl install redis
-
-echo '-------------'
-brew install redis
-# brew services start redis
-
+brew tap homebrew/bundle
+brew bundle
 echo 'Install laravel valet'
 echo '---------------------'
 composer global require laravel/valet
 valet install
-
-echo 'Install mysql'
-echo '-------------'
-brew install mysql
-# brew services start mysql
-
-echo 'Install gh cli'
-echo '-------------'
-brew install gh
-
-echo 'Install yarn'
-echo '------------'
-brew install yarn
-
-echo 'Install mackup'
-echo '--------------'
-brew install mackup
-
-echo 'Install zsh-autosuggestions'
-echo '---------------------------'
-brew install zsh-autosuggestions
-
-echo 'Install Improved ls™'
-echo '---------------------------'
-brew install exa
-
-echo 'Install zsh-syntax-highlighting'
-echo '---------------------------'
-brew install zsh-syntax-highlighting
-
-echo 'Install fzf searcher'
-echo '---------------------------'
-brew install fzf
 $(brew --prefix)/opt/fzf/install
-
-echo 'Install karabiner elements'
-echo '---------------------------'
-brew install --cask karabiner-elements
-
-echo 'Install goku'
-echo '---------------------------'
-brew install yqrashawn/goku/goku
-
-echo 'Install hammerspoon'
-echo '---------------------------'
-brew install --cask hammerspoon
 
 echo "linking karabiner config"
 ln -s "$HOME/.dotfiles/karabiner/karabiner.edn" "$HOME/.config/karabiner.edn"

@@ -1,9 +1,15 @@
 {
+  :simlayer-threshold 200
   :templates {
    :hyper "open -g hammerspoon://hyper?action=%s\\&target=%s"
+   :launch "open -a %s"
   }
   :layers {
     :default {:key :caps_lock :alone {:key :escape}}
+  }
+  :simlayers {
+    :general {:key :semicolon}
+    :launch {:key :comma}
   }
   :main [
     {
@@ -18,7 +24,27 @@
         [:y [:hyper "copy" "default"]]
         [:i [:hyper "insert" "default"]]
         [:semicolon [:hyper "open" "alfred"]]
+        [:period [:hyper "execute" "default"]]
       ]
     }
+    {
+        :des "General layer"
+        :rules [:general
+          [:s [:hyper "general" "save"]]
+          [:w [:hyper "general" "close"]]
+          [:t [:hyper "general" "new"]]
+          [:r [:hyper "general" "refresh"]]
+        ]
+      }
+    {
+        :des "Launch layer"
+        :rules [:launch
+          [:a [:launch "Slack.app"]]
+          [:b [:launch "Brave\\ Browser.app"]]
+          [:d [:launch "TablePlus.app"]]
+          [:m [:launch "Spotify.app"]]
+          [:e [:launch "Visual\\ Studio\\ Code.app"]]
+        ]
+      }
   ]
 }

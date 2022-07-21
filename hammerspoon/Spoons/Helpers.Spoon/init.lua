@@ -68,4 +68,39 @@ function modal(name, actions, onEnter, onExit)
     end
 end
 
+function getSelectedText(copying)
+    original = hs.pasteboard.getContents()
+    hs.pasteboard.clearContents()
+    hs.eventtap.keyStroke({'cmd'}, 'C')
+    text = hs.pasteboard.getContents()
+    finderFileSelected = false
+    for k,v in pairs(hs.pasteboard.contentTypes()) do
+        if v == 'public.file-url' then
+            finderFileSelected = true
+        end
+    end
+
+    if not copying and finderFileSelected then
+        text = 'finderFileSelected'
+    end
+
+    if not copying then
+        hs.pasteboard.setContents(original)
+    end
+
+    return text
+end
+
+function copy(callback)
+    return function()
+        text = getSelectedText(true)
+        if text then
+            -- Already in clipboard, do not reset
+        else
+            callback()
+        end
+    end
+end
+
+
 return obj

@@ -11,7 +11,7 @@ phpv() {
 
 alias php74="phpv php@7.4"
 alias php8="phpv php@8.0"
-alias php81="phpv php@8.1"
+alias php81="phpv php"
 
 
 # Create a new directory and enter it
@@ -37,22 +37,9 @@ function phpserver() {
 	php -S "${ip}:${port}"
 }
 
-# All the dig info
-function digga() {
-	dig +nocmd "$1" any +multiline +noall +answer
-}
-
-#shortcut voor zhs quick-look command
-function ql() {
-   quick-look "$1"
-}
 
 function archive () {
    zip -r "$1".zip -i "$1" ;
-}
-
-function removehost() {
-   ssh-keygen -R "$1"
 }
 
 function weather() {
@@ -63,23 +50,6 @@ function weather() {
    fi
 
    eval "curl http://wttr.in/${city}"
-}
-
-# Scrape a single webpage with all assets
-function scrapeUrl() {
-    wget --adjust-extension --convert-links --page-requisites --span-hosts --no-host-directories "$1"
-}
-
-#  Commit everything
-function commit() {
-  commitMessage="$1"
-
-  if [ "$commitMessage" = "" ]; then
-     commitMessage="wip"
-  fi
-
-  git add .
-  eval "git commit -a -m '${commitMessage}'"
 }
 
 function composer-link() {
