@@ -1,15 +1,7 @@
 # PHP
 alias phpunit="vendor/bin/phpunit"
-alias phpunitw="phpunit-watcher watch"
 alias a="php artisan"
 alias c="composer"
-alias cu="composer update"
-alias cr="composer require"
-alias ci="composer install"
-alias cda="composer dump-autoload -o"
-alias hostfile="sudo vi /etc/hosts"
-alias deploy='envoy run deploy'
-alias deploy-code='envoy run deploy-code'
 alias mfs='php artisan migrate:fresh --seed'
 alias nah='git reset --hard;git clean -df'
 alias p="./vendor/bin/pest"
@@ -17,19 +9,13 @@ alias pt="./vendor/bin/phpunit"
 alias pf="phpunit --filter "
 alias sshconfig="vi ~/.ssh/config"
 alias copykey='command cat ~/.ssh/id_rsa.public | pbcopy'
-alias sail='bash vendor/bin/sail'
 
 # JavaScript
 alias jest="./node_modules/.bin/jest"
 
 # Git
-alias gc="git checkout"
-alias gpo="git push origin"
-alias gm="git merge"
-alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias wip="git add . && git commit -m 'wip'"
 alias nah="git reset --hard && git clean -df"
-alias gp='git push origin master'
 
 # Fast open
 alias o="open ."
@@ -37,13 +23,6 @@ alias o="open ."
 # Alias for ls
 alias ls="exa"
 
-
-# Redis
-alias flush-redis="redis-cli FLUSHALL"
-
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -64,11 +43,3 @@ alias sudo='sudo '
 
 # Scape webpage
 alias scrape="scrapeUrl"
-
-# Switch NPM
-alias npmnpm="npm config set registry https://registry.npmjs.org"
-
-# Vagrant
-alias vu="cd ~/Homestead && vagrant up"
-alias vm='ssh vagrant@127.0.0.1 -p 2222'
-alias vd="cd ~/Homestead && vagrant halt"
