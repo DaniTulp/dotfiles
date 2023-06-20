@@ -3,9 +3,8 @@
 local obj = {}
 obj.__index = obj
 
+arc = 'company.thebrowser.Browser'
 activitymonitor = 'com.apple.ActivityMonitor'
-bear = 'net.shinyfrog.bear'
-brave = 'com.brave.Browser'
 finder = 'com.apple.finder'
 githubDesktop = 'com.github.GitHubClient'
 iterm = 'com.googlecode.iterm2'
@@ -17,5 +16,6 @@ spotify = 'com.spotify.client'
 systempreferences = 'com.apple.systempreferences'
 tableplus = 'com.tinyapp.TablePlus'
 vscode = 'com.microsoft.VSCode'
+obsidian = 'md.obsidian'
 
 return obj

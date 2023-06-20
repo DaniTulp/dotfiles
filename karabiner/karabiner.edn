@@ -13,7 +13,7 @@
 ; ## | optional any
 
 {
-  :simlayer-threshold 200
+  :simlayer-threshold 150
   :templates {
    :hyper "open -g hammerspoon://hyper?action=%s\\&target=%s"
    :launch "open -a %s"
@@ -23,11 +23,15 @@
   }
   :simlayers {
     :general {:key :semicolon}
+    :insert {:key :i}
     :launch {:key :comma}
+    :execute {:key :period}
+    :toggle {:key :spacebar}
+    :debug {:key :x}
   }
   :main [
     {
-      :des "Command layer"
+      :des "Default layer"
       :rules [:default
         [:o [:hyper "open" "default"]]
         [:h [:hyper "navigate" "back"]]
@@ -39,6 +43,8 @@
         [:i [:hyper "insert" "default"]]
         [:semicolon [:hyper "open" "alfred"]]
         [:period [:hyper "execute" "default"]]
+        [:m [:hyper "toggle" "sidebar"]]
+        [:spacebar [:hyper "toggle" "default"]]
       ]
     }
     {
@@ -54,11 +60,19 @@
         :des "Launch layer"
         :rules [:launch
           [:a [:launch "Slack.app"]]
-          [:b [:launch "Brave\\ Browser.app"]]
+          [:b [:launch "Arc.app"]]
           [:d [:launch "TablePlus.app"]]
-          [:m [:launch "Spotify.app"]]
           [:e [:launch "Visual\\ Studio\\ Code.app"]]
+          [:m [:launch "Spotify.app"]]
+          [:t [:launch "iTerm.app"]]
+          [:w [:launch "Obsidian.app"]]
         ]
       }
+    {
+        :des "Insert"
+        :rules [:insert
+            [:c [:hyper "insert" "c"]]
+        ]
+    }
   ]
 }
