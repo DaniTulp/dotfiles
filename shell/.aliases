@@ -10,6 +10,7 @@ alias pf="phpunit --filter "
 alias sshconfig="vi ~/.ssh/config"
 alias copykey='command cat ~/.ssh/id_rsa.public | pbcopy'
 
+
 # JavaScript
 alias jest="./node_modules/.bin/jest"
 
