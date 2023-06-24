@@ -3,13 +3,11 @@ alias phpunit="vendor/bin/phpunit"
 alias a="php artisan"
 alias c="composer"
 alias mfs='php artisan migrate:fresh --seed'
-alias nah='git reset --hard;git clean -df'
 alias p="./vendor/bin/pest"
 alias pt="./vendor/bin/phpunit"
 alias pf="phpunit --filter "
 alias sshconfig="vi ~/.ssh/config"
 alias copykey='command cat ~/.ssh/id_rsa.public | pbcopy'
-
 
 # JavaScript
 alias jest="./node_modules/.bin/jest"
