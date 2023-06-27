@@ -37,6 +37,9 @@ hyper:app(arc):action('open', {
     sidebar = combo({'cmd'}, 's')
 }):action('insert', {
     c = combo({'cmd', 'shift'}, 'p'), -- credentials
+    g = chain({combo({'cmd', 'shift'}, '9'), combo({'cmd'}, 'v')}) -- generate & paste password
+}):action('execute', {
+    debug = combo({'cmd', 'option'}, 'i')
 })
 
 hyper:app(vscode):action('copy', {

@@ -69,9 +69,16 @@
         ]
       }
     {
+        :des "Command layer"
+        :rules [:execute
+          [:x [:hyper "execute" "debug"]]
+        ]
+      }
+    {
         :des "Insert"
         :rules [:insert
             [:c [:hyper "insert" "c"]]
+            [:g [:hyper "insert" "g"]]
         ]
     }
   ]

@@ -13,7 +13,7 @@ alias copykey='command cat ~/.ssh/id_rsa.public | pbcopy'
 alias jest="./node_modules/.bin/jest"
 
 # Git
-alias wip='git add . && git commit -m "wip"'
+alias wip="git add . && git commit -m 'wip'"
 alias nah="git reset --hard && git clean -df"
 
 # Fast open

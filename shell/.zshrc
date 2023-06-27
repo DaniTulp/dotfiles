@@ -4,10 +4,6 @@
 ZSH=$HOME/.oh-my-zsh
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 
-ZSH_CUSTOM=$HOME/.dotfiles/misc/oh-my-zsh-custom
-
-ZSH_THEME=""
-
 autoload -U promptinit; promptinit
 prompt pure
 
@@ -94,7 +90,9 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# export PATH="/usr/local/opt/go@1.16/bin:$PATH"
+# doesn't work with fig yet https://github.com/withfig/fig/issues/2199 :(
+# ZELLIJ_AUTO_EXIT=true
+# eval "$(zellij setup --generate-auto-start zsh)"
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall

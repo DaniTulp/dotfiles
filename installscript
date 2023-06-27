@@ -16,6 +16,7 @@ git config --global core.excludesfile $HOME/.global-gitignore
 # Symlink zsh prefs
 rm $HOME/.zshrc
 ln -s $HOME/.dotfiles/shell/.zshrc $HOME/.zshrc
+ln -s $HOME/.dotfiles/zellij/config.kdl $HOME/.config/zellij/config.kdl
 
 # Symlink vim prefs
 rm $HOME/.vimrc
@@ -65,9 +66,6 @@ ln -s "$HOME/.dotfiles/hammerspoon" "$HOME/.hammerspoon"
 echo '++++++++++++++++++++++++++++++'
 echo '++++++++++++++++++++++++++++++'
 echo 'All done!'
-echo 'Things to do to make the agnoster terminal theme work:'
-echo '1. Install menlo patched font included in ~/.dotfiles/misc https://gist.github.com/qrush/1595572/raw/Menlo-Powerline.otf'
-echo '2. Install patched solarized theme included in ~/.dotfiles/misc'
 
 echo '++++++++++++++++++++++++++++++'
 echo 'Some optional tidbits'
