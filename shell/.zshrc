@@ -6,7 +6,6 @@ fpath+=("$(brew --prefix)/share/zsh/site-functions")
 
 autoload -U promptinit; promptinit
 prompt pure
-
 # Hide username in prompt
 DEFAULT_USER=`whoami`
 
