@@ -7,6 +7,7 @@ gokuWatcher = hs.pathwatcher.new(os.getenv('HOME') .. '/.config/karabiner.edn/',
 end):start()
 
 hs.loadSpoon('ReloadConfiguration')
+
 spoon.ReloadConfiguration:start()
 hs.notify.new({
     title = 'Hammerspoon',
@@ -16,12 +17,15 @@ hs.notify.new({
 hs.loadSpoon('Hyper')
 hs.loadSpoon('Helpers')
 hs.loadSpoon('Apps')
+hs.loadSpoon('Windows')
 
 hyper:app(slack):action('open', {
     default = combo({'cmd'}, 'k')
 }):action('navigate', {
     back = combo({'cmd'}, '['),
     forward = combo({'cmd'}, ']')
+}):action('toggle', {
+    sidebar = combo({'cmd'}, '.')
 })
 
 hyper:app(arc):action('open', {
@@ -34,7 +38,7 @@ hyper:app(arc):action('open', {
 }):action('copy', {
     default = copy(keys('yy'))
 }):action('toggle', {
-    sidebar = combo({'cmd'}, 's')
+    sidebar = combo({'cmd', 'alt'}, 's')
 }):action('insert', {
     c = combo({'cmd', 'shift'}, 'p'), -- credentials
     g = chain({combo({'cmd', 'shift'}, '9'), combo({'cmd'}, 'v')}) -- generate & paste password
@@ -78,7 +82,10 @@ hyper:app('fallback'):action('open', {
     new = combo({'cmd'}, 't'),
     refresh = combo({'cmd'}, 'r')
 }):action('execute', {
-    default = alfredWorkflow('com.tedwise.menubarsearch', 'menubarsearch')
+    default = alfredWorkflow('com.folded-paper.menu-bar-search', 'menubarsearch')
 }):action('toggle', {
     sidebar = combo({'cmd'}, '/')
+}):action('navigate', {
+    back = combo({'cmd'}, '['),
+    forward = combo({'cmd'}, ']')
 })

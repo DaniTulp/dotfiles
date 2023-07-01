@@ -13,8 +13,9 @@
 ; ## | optional any
 
 {
-  :simlayer-threshold 150
+  :simlayer-threshold 200
   :templates {
+   :hs "open -g hammerspoon://\"%s\""
    :hyper "open -g hammerspoon://hyper?action=%s\\&target=%s"
    :launch "open -a %s"
   }
@@ -28,6 +29,7 @@
     :execute {:key :period}
     :toggle {:key :spacebar}
     :debug {:key :x}
+    :window {:key :w}
   }
   :main [
     {
@@ -81,5 +83,20 @@
             [:g [:hyper "insert" "g"]]
         ]
     }
+    {
+    :des "Window layer"
+    :rules [:window
+     [:semicolon [:hs "moveWindow?key=full"]]
+     [:i [:hs "moveWindow?key=center"]]
+     [:h [:hs "moveWindow?key=left"]]
+     [:j [:hs "moveWindow?key=bottom"]]
+     [:k [:hs "moveWindow?key=top"]]
+     [:l [:hs "moveWindow?key=right"]]
+     [:u [:hs "moveWindow?key=topLeft"]]
+     [:o [:hs "moveWindow?key=topRight"]]
+     [:n [:hs "moveWindow?key=bottomLeft"]]
+     [:period [:hs "moveWindow?key=bottomRight"]]
+    ]
+   }
   ]
 }
