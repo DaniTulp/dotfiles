@@ -68,6 +68,7 @@
           [:m [:launch "Spotify.app"]]
           [:t [:launch "iTerm.app"]]
           [:w [:launch "Obsidian.app"]]
+          [:v [:launch "zoom.us.app"]]
         ]
       }
     {
