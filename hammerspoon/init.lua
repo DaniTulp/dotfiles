@@ -9,6 +9,19 @@ end):start()
 hs.loadSpoon('ReloadConfiguration')
 
 spoon.ReloadConfiguration:start()
+
+hs.audiodevice.watcher.setCallback(function(event)
+    if (event == 'dIn ') then
+        mic = hs.audiodevice.findInputByName('MacBook Pro Microphone')
+        if (mic and mic:name() ~= hs.audiodevice.defaultInputDevice():name()) then
+            mic:setDefaultInputDevice()
+            hs.notify.new({title = 'Input Connected', informativeText = mic:name()}):send()
+        end
+    end
+end)
+hs.audiodevice.watcher.start()
+
+
 hs.notify.new({
     title = 'Hammerspoon',
     informativeText = 'Config loaded'
@@ -59,6 +72,14 @@ hyper:app(obsidian):action('open', {
     default = combo({'cmd'}, 'o')
 }):action('execute', {
     default = combo({'cmd'}, 'p')
+})
+
+hyper:app(notion):action('open', {
+    default = combo({'cmd'}, 'k')
+}):action('copy', {
+    default = copy(combo({'cmd'}, 'l'))
+}):action('toggle', {
+    sidebar = combo({'cmd'}, '\\')
 })
 
 hyper:app(finder):action('navigate', {

@@ -94,11 +94,15 @@ end
 function copy(callback)
     return function()
         text = getSelectedText(true)
-        if text then
-            -- Already in clipboard, do not reset
-        else
+        -- hack around notion seemingly populating non-selected text with "-"
+        if text == "-" and frontApp() == notion then
             callback()
         end
+        if text then
+            -- Already in clipboard, do not reset
+            return
+        end
+        callback()
     end
 end
 

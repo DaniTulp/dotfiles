@@ -1,0 +1,19 @@
+[core]
+	excludesfile = /Users/dani/.global-gitignore
+[user]
+	name = Dani Tulp
+	email = danitulp@gmail.com
+[push]
+	default = simple
+	autoSetupRemote = true
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[init]
+	defaultBranch = main
+[includeIf "gitdir:~/code/hospitable/"]
+    path = .gitconfig.hospitable

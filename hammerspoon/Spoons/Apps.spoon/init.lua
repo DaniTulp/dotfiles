@@ -17,5 +17,6 @@ systempreferences = 'com.apple.systempreferences'
 tableplus = 'com.tinyapp.TablePlus'
 vscode = 'com.microsoft.VSCode'
 obsidian = 'md.obsidian'
+notion = 'notion.id'
 
 return obj
