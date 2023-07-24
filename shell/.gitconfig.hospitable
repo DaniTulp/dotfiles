@@ -2,3 +2,5 @@
     name = Dani Tulp
     email = dani.tulp@hospitable.com
     signingkey = 0226F34AC5BF417A
+[commit]
+	gpgsign = true

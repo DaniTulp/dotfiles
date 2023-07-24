@@ -62,7 +62,11 @@ hyper:app(arc):action('open', {
 hyper:app(vscode):action('copy', {
     default = copy(combo({'cmd', 'option', 'control'}, 'y'))
 }):action('execute', {
-    default = combo({'cmd', 'shift'}, 'p')
+    default = combo({'cmd', 'shift'}, 'p'),
+    a = combo({'cmd', 'ctrl'}, 'a'), -- run all tests
+    f = combo({'cmd', 'ctrl'}, 'f'), -- test current file
+    r = combo({'cmd', 'ctrl'}, 'p'), -- rerun last test
+    t = combo({'cmd', 'ctrl'}, 't'), -- test current method
 }):action('toggle', {
     default = combo({'cmd'}, '/'),
     sidebar = combo({'cmd'}, 'b')

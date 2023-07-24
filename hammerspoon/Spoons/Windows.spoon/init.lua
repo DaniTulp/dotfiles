@@ -31,11 +31,14 @@ hs.urlevent.bind('moveWindow', function(listener, params)
         if windowPositions[params.key] == windowPositions.right then
             hs.grid.pushWindowRight(win)
             hs.grid.set(win, windowPositions.left)
+            return
         end
         if windowPositions[params.key] == windowPositions.left then
             hs.grid.pushWindowLeft(win)
             hs.grid.set(win, windowPositions.right)
+            return
         end
+        hs.grid.set(win, windowPositions[params.key])
     else
         hs.grid.set(win, windowPositions[params.key])
     end

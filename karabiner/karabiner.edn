@@ -76,6 +76,10 @@
         :des "Command layer"
         :rules [:execute
           [:x [:hyper "execute" "debug"]]
+          [:a [:hyper "execute" "a"]]
+          [:f [:hyper "execute" "f"]]
+          [:r [:hyper "execute" "r"]]
+          [:t [:hyper "execute" "t"]]
         ]
       }
     {
