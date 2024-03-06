@@ -9,9 +9,7 @@ phpv() {
     valet install
 }
 
-alias php74="phpv php@7.4"
-alias php8="phpv php@8.0"
-alias php81="phpv php"
+alias php81="/opt/homebrew/opt/php@8.1/bin/php"
 
 function archive () {
    zip -r "$1".zip -i "$1" ;

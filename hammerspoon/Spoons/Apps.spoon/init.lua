@@ -18,5 +18,6 @@ tableplus = 'com.tinyapp.TablePlus'
 vscode = 'com.microsoft.VSCode'
 obsidian = 'md.obsidian'
 notion = 'notion.id'
+linear = 'com.linear'
 
 return obj

@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
@@ -77,6 +75,7 @@ export XDEBUG_CONFIG="idekey=VSCODE"
 # Enable autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix asdf)/libexec/asdf.sh
 source <(kubectl completion zsh)
 
 # Extra paths
@@ -85,7 +84,9 @@ export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/lib/ruby/gems/2.6.0/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH=$HOME/bin:~/.config/phpmon/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -97,6 +98,3 @@ export PATH="/usr/local/opt/ruby/bin:$PATH"
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /Users/danitulp/.dart-cli-completion/zsh-config.zsh ]] && . /Users/danitulp/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

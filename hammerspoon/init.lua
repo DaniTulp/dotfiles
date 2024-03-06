@@ -12,7 +12,7 @@ spoon.ReloadConfiguration:start()
 
 hs.audiodevice.watcher.setCallback(function(event)
     if (event == 'dIn ') then
-        mic = hs.audiodevice.findInputByName('MacBook Pro Microphone')
+        mic = hs.audiodevice.findInputByName('Opal C1 Audio Mic')
         if (mic and mic:name() ~= hs.audiodevice.defaultInputDevice():name()) then
             mic:setDefaultInputDevice()
             hs.notify.new({title = 'Input Connected', informativeText = mic:name()}):send()
@@ -89,6 +89,12 @@ hyper:app(notion):action('open', {
 hyper:app(finder):action('navigate', {
     back = combo({'cmd'}, '['),
     forward = combo({'cmd'}, ']')
+})
+
+hyper:app(linear):action('open', {
+    default = combo({'cmd'}, 'k')
+}):action('toggle', {
+    sidebar = keys("[")
 })
 
 hyper:app('fallback'):action('open', {
