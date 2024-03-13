@@ -65,7 +65,9 @@ echo "linking hammerspoon config"
 ln -s "$HOME/.dotfiles/hammerspoon" "$HOME/.hammerspoon"
 echo "linking nvim config"
 ln -s "$HOME/.dotfiles/nvim" "$HOME/.config/nvim"
-
+echo "linking kitty config"
+rm -rf $HOME/.config/kitty
+ln -s $HOME/.dotfiles/kitty $HOME/.config/kitty
 
 echo '++++++++++++++++++++++++++++++'
 echo '++++++++++++++++++++++++++++++'

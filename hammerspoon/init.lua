@@ -10,15 +10,18 @@ hs.loadSpoon('ReloadConfiguration')
 
 spoon.ReloadConfiguration:start()
 
-hs.audiodevice.watcher.setCallback(function(event)
-    if (event == 'dIn ') then
-        mic = hs.audiodevice.findInputByName('Opal C1 Audio Mic')
-        if (mic and mic:name() ~= hs.audiodevice.defaultInputDevice():name()) then
-            mic:setDefaultInputDevice()
-            hs.notify.new({title = 'Input Connected', informativeText = mic:name()}):send()
+function audioDeviceCallback(event)
+    if (event == "dIn ") then -- That trailing space is not a mistake
+
+        local microphone = hs.audiodevice.findDeviceByName("Opal C1 Audio Mic")
+        if (microphone ~= nil) then
+            print("Setting microphone to be the default again")
+            microphone:setDefaultInputDevice()
         end
     end
-end)
+end
+
+hs.audiodevice.watcher.setCallback(audioDeviceCallback)
 hs.audiodevice.watcher.start()
 
 

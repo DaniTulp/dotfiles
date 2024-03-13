@@ -1,57 +1,7 @@
 --[[
 
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-
-What is Kickstart?
-
-  Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
-
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
 
 Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know how the Neovim basics, you can skip this step)
 
   Once you've completed that, you can continue working through **AND READING** the rest
   of the kickstart init.lua
@@ -91,7 +41,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -222,6 +172,9 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  { 'windwp/nvim-autopairs', config = true },
+  -- surround things
+  'tpope/vim-surround',
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- NOTE: Plugins can also be added by using a table,
@@ -424,7 +377,7 @@ require('lazy').setup({
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
+      { 'kevinhwang91/nvim-ufo', opts = { close_fold_kinds = { 'imports' } }, dependencies = { 'kevinhwang91/promise-async' } },
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
@@ -454,56 +407,15 @@ require('lazy').setup({
       --
       -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
       -- and elegantly composed help section, `:help lsp-vs-treesitter`
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-      -- PHP
-      require('lspconfig').intelephense.setup {
-        commands = {
-          IntelephenseIndex = {
-            function()
-              vim.lsp.buf.execute_command { command = 'intelephense.index.workspace' }
-            end,
-          },
-        },
-        on_attach = function(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-          -- if client.server_capabilities.inlayHintProvider then
-          --   vim.lsp.buf.inlay_hint(bufnr, true)
-          -- end
-        end,
-        capabilities = capabilities,
-      }
 
-      require('lspconfig').phpactor.setup {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          client.server_capabilities.completionProvider = false
-          client.server_capabilities.hoverProvider = false
-          client.server_capabilities.implementationProvider = false
-          client.server_capabilities.referencesProvider = false
-          client.server_capabilities.renameProvider = false
-          client.server_capabilities.selectionRangeProvider = false
-          client.server_capabilities.signatureHelpProvider = false
-          client.server_capabilities.typeDefinitionProvider = false
-          client.server_capabilities.workspaceSymbolProvider = false
-          client.server_capabilities.definitionProvider = false
-          client.server_capabilities.documentHighlightProvider = false
-          client.server_capabilities.documentSymbolProvider = false
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end,
-        init_options = {
-          ['language_server_phpstan.enabled'] = false,
-          ['language_server_psalm.enabled'] = false,
-        },
-        handlers = {
-          ['textDocument/publishDiagnostics'] = function() end,
-        },
-      }
       --  This function gets run when an LSP attaches to a particular buffer.
       --    That is to say, every time a new file is opened that is associated with
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
       --    function will be executed to configure the current buffer
+      --    vim.o.foldcolumn = '1' -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -582,9 +494,12 @@ require('lazy').setup({
       --  By default, Neovim doesn't support everything that is in the LSP Specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -595,8 +510,33 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        intelephense = {},
-        phpactor = false,
+        intelephense = {
+          on_attach = function(client, bufner)
+            client.server_capabilities.definitionProvider = false
+            client.server_capabilities.completionProvider = false
+            client.server_capabilities.completionProvider = false
+            client.server_capabilities.hoverProvider = false
+            client.server_capabilities.implementationProvider = false
+            client.server_capabilities.referencesProvider = false
+            client.server_capabilities.renameProvider = false
+            client.server_capabilities.selectionRangeProvider = false
+            client.server_capabilities.signatureHelpProvider = false
+            client.server_capabilities.typeDefinitionProvider = false
+            client.server_capabilities.workspaceSymbolProvider = false
+            client.server_capabilities.documentSymbolProvider = false
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
+        },
+        phpactor = {
+          init_options = {
+            ['language_server_phpstan.enabled'] = false,
+            ['language_server_psalm.enabled'] = false,
+          },
+          handlers = {
+            ['textDocument/publishDiagnostics'] = function() end,
+          },
+        },
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -645,6 +585,7 @@ require('lazy').setup({
       --
       --  You can press `g?` for help in this menu
       require('mason').setup()
+      require('ufo').setup()
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
@@ -667,6 +608,15 @@ require('lazy').setup({
         },
       }
     end,
+  },
+  {
+    'phpactor/phpactor',
+    build = 'composer install --no-dev --optimize-autoloader',
+    ft = 'php',
+    keys = {
+      { '<Leader>pm', ':PhpactorContextMenu<CR>' },
+      { '<Leader>pn', ':PhpactorClassNew<CR>' },
+    },
   },
 
   { -- Autoformat
@@ -748,7 +698,10 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          ['<Tab>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+          },
 
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
@@ -788,14 +741,14 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`
-    'oxfist/night-owl.nvim',
+    'folke/tokyonight.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'night-owl'
+      vim.cmd.colorscheme 'tokyonight'
 
       -- You can configure highlights by doing something like
       vim.cmd.hi 'Comment gui=none'
