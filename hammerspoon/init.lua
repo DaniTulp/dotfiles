@@ -11,7 +11,6 @@ hs.loadSpoon('ReloadConfiguration')
 spoon.ReloadConfiguration:start()
 
 function audioDeviceCallback(event)
-    print(event)
     if (event == "dIn ") then -- That trailing space is not a mistake
         local microphone = hs.audiodevice.findDeviceByName("Opal C1 Audio Mic")
         if (microphone ~= nil) then
