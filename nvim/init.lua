@@ -1,52 +1,10 @@
---[[
-
-
-Kickstart Guide:
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not sure exactly what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or neovim features used in kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your nvim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
---]]
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
-
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
 
 -- Make line numbers default
 vim.opt.number = true
@@ -61,8 +19,6 @@ vim.opt.mouse = 'a'
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
@@ -173,18 +129,8 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   { 'windwp/nvim-autopairs', config = true },
-  -- surround things
-  'tpope/vim-surround',
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+  'tpope/vim-surround', -- surround things
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to force a plugin to be loaded.
-  --
-  --  This is equivalent to:
-  --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -374,7 +320,6 @@ require('lazy').setup({
     config = function()
       vim.cmd [[
       let test#php#phpunit#executable = 'php artisan test'
-      let test#php#pest#options = '--colors=always'
 
       let g:test#strategy = 'floaterm'
     ]]
@@ -393,36 +338,6 @@ require('lazy').setup({
       { 'j-hui/fidget.nvim', opts = {} },
     },
     config = function()
-      -- Brief Aside: **What is LSP?**
-      --
-      -- LSP is an acronym you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
-      -- In general, you have a "server" which is some tool built to understand a particular
-      -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc). These Language Servers
-      -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-      -- processes that communicate with some "client" - in this case, Neovim!
-      --
-      -- LSP provides Neovim with features like:
-      --  - Go to definition
-      --  - Find references
-      --  - Autocompletion
-      --  - Symbol Search
-      --  - and more!
-      --
-      -- Thus, Language Servers are external tools that must be installed separately from
-      -- Neovim. This is where `mason` and related plugins come into play.
-      --
-      -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-      -- and elegantly composed help section, `:help lsp-vs-treesitter`
-
-      --  This function gets run when an LSP attaches to a particular buffer.
-      --    That is to say, every time a new file is opened that is associated with
-      --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-      --    function will be executed to configure the current buffer
-      --    vim.o.foldcolumn = '1' -- '0' is not bad
       vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
@@ -521,45 +436,32 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         intelephense = {
-          on_attach = function(client, bufner)
-            client.server_capabilities.definitionProvider = false
-            client.server_capabilities.completionProvider = false
-            client.server_capabilities.completionProvider = false
-            client.server_capabilities.hoverProvider = false
-            client.server_capabilities.implementationProvider = false
-            client.server_capabilities.referencesProvider = false
-            client.server_capabilities.renameProvider = false
-            client.server_capabilities.selectionRangeProvider = false
-            client.server_capabilities.signatureHelpProvider = false
-            client.server_capabilities.typeDefinitionProvider = false
-            client.server_capabilities.workspaceSymbolProvider = false
-            client.server_capabilities.documentSymbolProvider = false
-            client.server_capabilities.documentFormattingProvider = true
-            client.server_capabilities.documentRangeFormattingProvider = true
+          on_attach = function(client)
+            -- client.server_capabilities.definitionProvider = false
+            -- client.server_capabilities.completionProvider = false
+            -- client.server_capabilities.completionProvider = false
+            -- client.server_capabilities.hoverProvider = false
+            -- client.server_capabilities.implementationProvider = false
+            -- client.server_capabilities.referencesProvider = false
+            -- client.server_capabilities.renameProvider = false
+            -- client.server_capabilities.selectionRangeProvider = false
+            -- client.server_capabilities.signatureHelpProvider = false
+            -- client.server_capabilities.typeDefinitionProvider = false
+            -- client.server_capabilities.workspaceSymbolProvider = false
+            -- client.server_capabilities.documentSymbolProvider = false
+            -- client.server_capabilities.documentFormattingProvider = true
+            -- client.server_capabilities.documentRangeFormattingProvider = true
           end,
         },
         phpactor = {
           init_options = {
-            ['language_server_phpstan.enabled'] = false,
+            ['language_server_phpstan.enabled'] = true,
             ['language_server_psalm.enabled'] = false,
           },
           handlers = {
             ['textDocument/publishDiagnostics'] = function() end,
           },
         },
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-        --
-
         lua_ls = {
           -- cmd = {...},
           -- filetypes { ...},
@@ -708,7 +610,7 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<Tab>'] = cmp.mapping.confirm {
+          ['<C-y>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           },
@@ -745,7 +647,56 @@ require('lazy').setup({
       }
     end,
   },
-
+  {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+    dependencies = {
+      'arkav/lualine-lsp-progress',
+      'nvim-tree/nvim-web-devicons',
+    },
+    opts = {
+      options = {
+        icons_enabled = true,
+        section_separators = '',
+        component_separators = '',
+        globalstatus = true,
+        theme = {
+          normal = {
+            a = 'StatusLine',
+            b = 'StatusLine',
+            c = 'StatusLine',
+          },
+        },
+      },
+      sections = {
+        lualine_a = {
+          'mode',
+        },
+        lualine_b = {
+          'branch',
+          { 'diagnostics', sources = { 'nvim_diagnostic' } },
+        },
+        lualine_c = {
+          'filename',
+        },
+        lualine_x = {
+          {
+            require('lazy.status').updates,
+            cond = require('lazy.status').has_updates,
+            color = { fg = '#ff9e64' },
+          },
+        },
+        lualine_y = {
+          'filetype',
+        },
+        lualine_z = {
+          'searchcount',
+          'selectioncount',
+          'location',
+        },
+      },
+    },
+  },
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is
@@ -786,22 +737,6 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
-      local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-
-      -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
@@ -814,7 +749,7 @@ require('lazy').setup({
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'php', 'phpdoc' },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
@@ -829,25 +764,7 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
-
-  -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- put them in the right spots if you want.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for kickstart
-  --
-  --  Here are some example plugins that I've included in the kickstart repository.
-  --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    This is the easiest way to modularize your config.
-  --
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you have a Nerd Font, set icons to an empty table which will use the
