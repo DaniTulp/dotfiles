@@ -235,7 +235,7 @@ require('lazy').setup({
       -- This opens a window that shows you all of the keymaps for the current
       -- telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
-
+      local actions = require 'telescope.actions'
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
@@ -248,6 +248,23 @@ require('lazy').setup({
         --   },
         -- },
         defaults = {
+          path_display = { truncate = 1 },
+          prompt_prefix = '   ',
+          selection_caret = '  ',
+          layout_config = {
+            prompt_position = 'top',
+          },
+          preview = {
+            timeout = 200,
+          },
+          sorting_strategy = 'ascending',
+          mappings = {
+            i = {
+              ['<esc>'] = actions.close,
+              ['<C-Down>'] = actions.cycle_history_next,
+              ['<C-Up>'] = actions.cycle_history_prev,
+            },
+          },
           file_ignore_patterns = { '.git/' },
         },
         pickers = {
@@ -268,19 +285,15 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>sF', function()
+      vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>F', function()
         builtin.find_files { no_ignore = true }
       end, { desc = '[S]earch All [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>h', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -306,6 +319,18 @@ require('lazy').setup({
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
+  {
+    'voldikss/vim-floaterm',
+    keys = {
+      { '<C-t>', ':FloatermToggle<CR>' },
+      { '<C-t>', '<C-\\><C-n>:FloatermToggle<CR>', mode = 't' },
+    },
+    cmd = { 'FloatermToggle' },
+    init = function()
+      vim.g.floaterm_width = 0.8
+      vim.g.floaterm_height = 0.8
+    end,
+  },
   -- Testing
   {
     'vim-test/vim-test',
@@ -320,7 +345,6 @@ require('lazy').setup({
     config = function()
       vim.cmd [[
       let test#php#phpunit#executable = 'php artisan test'
-
       let g:test#strategy = 'floaterm'
     ]]
     end,
@@ -436,7 +460,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         intelephense = {
-          on_attach = function(client)
+          on_attach = function()
             -- client.server_capabilities.definitionProvider = false
             -- client.server_capabilities.completionProvider = false
             -- client.server_capabilities.completionProvider = false
