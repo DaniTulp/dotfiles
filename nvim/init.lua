@@ -135,24 +135,6 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
-  -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`. This is equivalent to the following lua:
-  --    require('gitsigns').setup({ ... })
-  --
-  -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
-  },
-
   -- NOTE: Plugins can also be configured to run lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
@@ -173,15 +155,6 @@ require('lazy').setup({
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
-
-      -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-      }
     end,
   },
 
@@ -329,24 +302,6 @@ require('lazy').setup({
     init = function()
       vim.g.floaterm_width = 0.8
       vim.g.floaterm_height = 0.8
-    end,
-  },
-  -- Testing
-  {
-    'vim-test/vim-test',
-    keys = {
-      { '<Leader>tn', ':TestNearest<CR>' },
-      { '<Leader>tf', ':TestFile<CR>' },
-      { '<Leader>ts', ':TestSuite<CR>' },
-      { '<Leader>tl', ':TestLast<CR>' },
-      { '<Leader>tv', ':TestVisit<CR>' },
-    },
-    dependencies = { 'voldikss/vim-floaterm' },
-    config = function()
-      vim.cmd [[
-      let test#php#phpunit#executable = 'php artisan test'
-      let g:test#strategy = 'floaterm'
-    ]]
     end,
   },
   { -- LSP Configuration & Plugins
@@ -550,7 +505,6 @@ require('lazy').setup({
     build = 'composer install --no-dev --optimize-autoloader',
     ft = 'php',
     keys = {
-      { '<Leader>pm', ':PhpactorContextMenu<CR>' },
       { '<Leader>pn', ':PhpactorClassNew<CR>' },
     },
   },
@@ -566,12 +520,6 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         php = { 'pint' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
       },
     },
   },
@@ -634,7 +582,7 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm {
+          ['<CR>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           },

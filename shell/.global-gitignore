@@ -28,3 +28,4 @@ yarn-error.log
 
 # Misc
 tmp
+.phpactor.json
