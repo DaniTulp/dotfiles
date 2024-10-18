@@ -71,6 +71,7 @@ ssh-add -A 2>/dev/null;
 
 # Setup xdebug
 export XDEBUG_CONFIG="idekey=VSCODE"
+DISABLE_MAGIC_FUNCTIONS=true
 
 # Enable autosuggestions
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -98,3 +99,19 @@ export PATH=$HOME/bin:~/.config/phpmon/bin:$PATH
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /Users/danitulp/.dart-cli-completion/zsh-config.zsh ]] && . /Users/danitulp/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
+
+
+# Herd injected PHP 8.3 configuration.
+export HERD_PHP_83_INI_SCAN_DIR="/Users/dani/Library/Application Support/Herd/config/php/83/"
+
+
+# Herd injected PHP binary.
+export PATH="/Users/dani/Library/Application Support/Herd/bin/":$PATH
+
+
+# Herd injected PHP 8.2 configuration.
+export HERD_PHP_82_INI_SCAN_DIR="/Users/dani/Library/Application Support/Herd/config/php/82/"
+
+
+# Herd injected PHP 8.1 configuration.
+export HERD_PHP_81_INI_SCAN_DIR="/Users/dani/Library/Application Support/Herd/config/php/81/"

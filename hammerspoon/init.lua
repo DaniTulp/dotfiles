@@ -10,17 +10,17 @@ hs.loadSpoon('ReloadConfiguration')
 
 spoon.ReloadConfiguration:start()
 
-function audioDeviceCallback(event)
+
+hs.audiodevice.watcher.setCallback(function(event)
+    print(event)
     if (event == "dIn ") then -- That trailing space is not a mistake
-        local microphone = hs.audiodevice.findDeviceByName("Opal C1 Audio Mic")
-        if (microphone ~= nil) then
-            print("Setting microphone to be the default again")
-            print(microphone:setMuted(true))
+        local microphone = hs.audiodevice.findDeviceByName("Scarlett Solo USB")
+        if (microphone and microphone:name() ~= hs.audiodevice.defaultInputDevice():name()) then
+            microphone:setDefaultInputDevice()
+            hs.notify.new({ title = 'Input Connected', informativeText = microphone:name() }):send()
         end
     end
-end
-
-hs.audiodevice.watcher.setCallback(audioDeviceCallback)
+end)
 hs.audiodevice.watcher.start()
 
 
@@ -56,13 +56,26 @@ hyper:app(arc):action('open', {
 }):action('toggle', {
     sidebar = combo({ 'cmd', 'alt' }, 's')
 }):action('insert', {
-    c = combo({ 'cmd', 'shift' }, 'p'),                            -- credentials
+    c = combo({ 'cmd', 'shift' }, 'p'),                                  -- credentials
     g = chain({ combo({ 'cmd', 'shift' }, '9'), combo({ 'cmd' }, 'v') }) -- generate & paste password
 }):action('execute', {
     debug = combo({ 'cmd', 'option' }, 'i')
 })
 
 hyper:app(vscode):action('copy', {
+    default = copy(combo({ 'cmd', 'option', 'control' }, 'y'))
+}):action('execute', {
+    default = combo({ 'cmd', 'shift' }, 'p'),
+    a = combo({ 'cmd', 'ctrl' }, 'a'), -- run all tests
+    f = combo({ 'cmd', 'ctrl' }, 'f'), -- test current file
+    r = combo({ 'cmd', 'ctrl' }, 'p'), -- rerun last test
+    t = combo({ 'cmd', 'ctrl' }, 't'), -- test current method
+}):action('toggle', {
+    default = combo({ 'cmd' }, '/'),
+    sidebar = combo({ 'cmd' }, 'b')
+})
+
+hyper:app(cursor):action('copy', {
     default = copy(combo({ 'cmd', 'option', 'control' }, 'y'))
 }):action('execute', {
     default = combo({ 'cmd', 'shift' }, 'p'),
@@ -122,4 +135,6 @@ hyper:app('fallback'):action('open', {
 }):action('navigate', {
     back = combo({ 'cmd' }, '['),
     forward = combo({ 'cmd' }, ']')
+}):action('universal-action', {
+    alfred = combo({'cmd', 'option', 'control'}, '/')
 })
